@@ -27,6 +27,7 @@ class AppModule {
     @Provides
     fun provideMessageDao(appDataBase: AppDataBase) = appDataBase.messageDao()
 
-
+    @Provides
+    fun provideChannelDao(appDataBase: AppDataBase) = appDataBase.channelDao()
 
 }

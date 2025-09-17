@@ -19,6 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner = "dagger.hilt.android.testing.HiltTestRunner"
+
     }
 
     buildTypes {
@@ -38,17 +40,26 @@ android {
         jvmTarget = "11"
     }
 }
-dependencies{
+dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation( libs.fragment.testing)
-    testImplementation( libs.fragment.testing)
+    androidTestImplementation(libs.fragment.testing)
+    testImplementation(libs.fragment.testing)
+    //hilt
+    testImplementation(libs.hilt.testing)
+    kspTest(libs.hilt.testing.compiler)
 
     // Mockito
     testImplementation(libs.mockito.core)
     androidTestImplementation(libs.mockito.android)
+    // corotuines
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    // room
+    testImplementation(libs.room.testing)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
 }
 dependencies {
 

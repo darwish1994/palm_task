@@ -1,5 +1,6 @@
 package com.theminesec.example.question1.core.di
 
+import com.theminesec.example.question1.feature.channel.data.remote.api.ChannelsApi
 import com.theminesec.example.question1.feature.chat.data.remote.MessageApi
 import dagger.Module
 import dagger.Provides
@@ -21,7 +22,7 @@ class NetworkModule {
         okHttpClient: OkHttpClient,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.example.com/")
+            .baseUrl("https://api.app.io/v1/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -44,6 +45,9 @@ class NetworkModule {
 
     @Provides
     fun provideApiService(retrofit: Retrofit): MessageApi = retrofit.create(MessageApi::class.java)
+
+    @Provides
+    fun provideChannelsApi(retrofit: Retrofit): ChannelsApi = retrofit.create(ChannelsApi::class.java)
 
 
 }

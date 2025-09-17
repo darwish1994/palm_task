@@ -40,12 +40,17 @@ class ChatFragment : Fragment() {
      * ****/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.v(this.tag, "onViewCreated")
         // Legacy code: observing with activity lifecycle, causing crash
         viewModel.messages.observe(viewLifecycleOwner) { msgs ->
             Log.v(this.tag, "message count ${msgs.size}")
             adapter.updateData(msgs)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.messages.removeObservers(viewLifecycleOwner)
+    }
+
 }
 
