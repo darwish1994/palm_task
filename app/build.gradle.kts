@@ -39,6 +39,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 dependencies {
     testImplementation(libs.junit)
@@ -50,16 +54,18 @@ dependencies {
     //hilt
     testImplementation(libs.hilt.testing)
     kspTest(libs.hilt.testing.compiler)
-
+    // google truth
+    testImplementation(libs.truth)
     // Mockito
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.mockito.android)
     // corotuines
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     // room
     testImplementation(libs.room.testing)
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation(libs.androidx.core.testing)
 }
 dependencies {
 

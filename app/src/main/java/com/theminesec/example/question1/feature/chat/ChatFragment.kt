@@ -14,9 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
-    private val viewModel: ChatViewModel by viewModels()
+    val viewModel: ChatViewModel by viewModels()
 
-    private var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
 
     private val adapter by lazy { MessagesAdapter() }
 
@@ -25,11 +25,7 @@ class ChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view = layoutInflater.inflate(R.layout.fragment_chat, container, false)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView?.adapter = adapter
-        return view
+        return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
     /****
@@ -40,7 +36,18 @@ class ChatFragment : Fragment() {
      * ****/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews(view)
         // Legacy code: observing with activity lifecycle, causing crash
+        setupObservers()
+    }
+
+    fun initViews(view: View) {
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.adapter = adapter
+    }
+
+
+    fun setupObservers() {
         viewModel.messages.observe(viewLifecycleOwner) { msgs ->
             Log.v(this.tag, "message count ${msgs.size}")
             adapter.updateData(msgs)
